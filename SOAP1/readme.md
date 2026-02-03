@@ -35,7 +35,7 @@ Le schéma général est le suivant :
 
 Les services web sont apparus pour répondre à un besoin fondamental : **permettre à des applications hétérogènes de communiquer de manière standardisée via le réseau**. Deux grandes approches se sont imposées au fil du temps : **SOAP** et **REST**.
 
----
+
 
 ### 2.1 Service web SOAP
 
@@ -132,7 +132,7 @@ Rôle de JAXB :
 * **Sérialisation** : Java → XML
 * **Désérialisation** : XML → Java
 
----
+
 
 ## 6. Rendre une classe Java sérialisable
 
@@ -189,7 +189,7 @@ public class MonServiceWeb {
 * `@WebService` : transforme la classe en service web
 * `targetNamespace` : identifiant unique du service (souvent une URL)
 
----
+
 
 ### 8.2 Personnaliser les méthodes SOAP
 
@@ -208,7 +208,7 @@ public double somme(
 * `@WebMethod` : renomme l’opération SOAP
 * `@WebParam` : nomme les paramètres dans le XML
 
----
+
 
 ## 9. Publier le service (serveur SOAP)
 
@@ -226,7 +226,7 @@ public class Application {
 
  Cette étape lance le **serveur SOAP**.
 
----
+
 
 ## 10. Accéder au WSDL
 
@@ -259,7 +259,7 @@ Outil recommandé : **SOAPUI**
 
 Quel que soit le langage client, la **réponse sera en XML**.
 
----
+
 
 ## 12. Conclusion
 
