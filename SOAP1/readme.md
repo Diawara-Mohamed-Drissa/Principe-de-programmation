@@ -103,6 +103,7 @@ REST n’a pas vocation à remplacer SOAP dans tous les contextes. Il a été cr
 ## 4. Schéma de communication (description)
 
 ![Schéma de fonctionnement d’un service web](shema/SOAP.png)
+Ou allez dans le dossier Shema/SOAP.png
 
 
 
