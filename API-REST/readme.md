@@ -65,6 +65,9 @@ Dans ce projet :
 Chaque requête REST contient une méthode HTTP, une URL et éventuellement des données (JSON).  
 La réponse contient un code HTTP et des données structurées.
 
+![Schéma de fonctionnement d'une API REST](shema/Rest.png)
+
+
 ---
 
 ## 6. Mise en place de l’application Flask
@@ -124,6 +127,11 @@ def get_student(id):
     return jsonify({"erreur": "L'étudiant n'existe pas"}), 404
 
 ```
+### Explication
+
+Cette route est associée à la méthode HTTP GET, utilisée pour récupérer des données sans modifier l’état du serveur.
+Lorsqu’un client envoie une requête GET vers /students, Flask appelle cette fonction et renvoie la liste des étudiants au format JSON.
+La fonction jsonify transforme automatiquement la structure Python en une réponse JSON compréhensible par le client.
 Cette route permet de récupérer un étudiant précis à partir de son identifiant.
 
 ## 10. Méthode POST : création d’une ressource
@@ -138,8 +146,12 @@ def add_student():
     return jsonify(new_student), 201
 
 ```
-Les données sont envoyées par le client au format JSON.
-Le code HTTP 201 indique que la création s’est déroulée avec succès.
+### Explication
+
+La méthode POST permet de créer une nouvelle ressource sur le serveur.
+Les données envoyées par le client sont récupérées à l’aide de request.get_json().
+Un identifiant est ensuite généré automatiquement, puis le nouvel étudiant est ajouté à la liste existante.
+Le code HTTP 201 indique que la création de la ressource a réussi.
 
 
 ## 11. Méthode PUT : mise à jour d’une ressource
@@ -154,7 +166,13 @@ def update_student(id):
     return jsonify(student)
 
 ```
-Cette méthode permet de modifier les informations d’un étudiant existant.
+
+### Explication
+
+La méthode PUT est utilisée pour modifier une ressource existante.
+Le serveur commence par vérifier que l’étudiant correspondant à l’identifiant existe.
+Les nouvelles données envoyées par le client remplacent ensuite les anciennes.
+Si l’étudiant n’existe pas, une erreur HTTP 404 est retournée.
 
 
 ## 12. Méthode DELETE : suppression d’une ressource
@@ -167,7 +185,11 @@ def delete_student(id):
 
 ```
 
-Cette route supprime l’étudiant correspondant à l’identifiant fourni.
+### Explication
+
+La méthode DELETE permet de supprimer une ressource du serveur.
+L’étudiant dont l’identifiant est fourni dans l’URL est retiré de la liste.
+Une réponse JSON est renvoyée afin de confirmer que la suppression a bien été effectuée.
 
 ## 13. Exécution et tests
 
