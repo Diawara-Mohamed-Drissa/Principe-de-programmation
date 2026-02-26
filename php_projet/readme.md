@@ -145,6 +145,189 @@ Flux logique :
 
 ---
 
+---
+
+## 4.1 Séparation des Responsabilités (Separation of Concerns)
+
+La séparation des responsabilités est un principe fondamental selon lequel chaque composant d’un système doit avoir une fonction clairement définie et indépendante.
+
+Dans une architecture non structurée :
+
+- L’affichage
+- La logique métier
+- Les requêtes réseau
+
+sont souvent mélangés.
+
+Exemple non recommandé :
+
+```php
+$data = file_get_contents("http://127.0.0.1:5000/students");
+$students = json_decode($data, true);
+
+foreach ($students as $student) {
+    echo "<p>" . $student['name'] . "</p>";
+}
+```
+
+Dans cet exemple :
+
+- L’accès aux données
+- Le traitement
+- L’affichage
+
+sont réunis dans un seul bloc.
+
+Avec MVC :
+
+- Le Model récupère les données
+- Le Controller coordonne
+- La View affiche
+
+Cette séparation rend l’application plus claire et plus maintenable.
+
+---
+
+## 4.2 Principe de Responsabilité Unique (SRP)
+
+Le principe de responsabilité unique (Single Responsibility Principle), issu des principes SOLID, stipule qu’une classe ne doit avoir qu’une seule raison de changer.
+
+Dans ce projet :
+
+- `StudentService` gère uniquement l’accès à l’API.
+- `StudentController` gère uniquement la logique de contrôle.
+- Les fichiers de vue gèrent uniquement l’affichage.
+
+Exemple :
+
+```php
+public static function getAllStudents()
+{
+    return self::request('GET', '/students');
+}
+```
+
+Cette méthode ne fait qu’une seule chose : récupérer les étudiants.
+
+Si l’API change, seul le service devra être modifié.
+
+---
+
+## 4.3 Cohésion et Couplage
+
+Deux notions fondamentales en architecture logicielle :
+
+### Cohésion
+
+La cohésion mesure à quel point les éléments d’un module sont liés entre eux.
+
+Un module fortement cohésif remplit une fonction bien précise.
+
+Dans ce projet :
+
+- Le service est fortement cohésif (il gère uniquement la communication API).
+
+### Couplage
+
+Le couplage mesure le niveau de dépendance entre modules.
+
+Un faible couplage est souhaitable.
+
+Dans MVC :
+
+- La View ne connaît pas le fonctionnement interne du Model.
+- Le Model ne connaît pas l’interface utilisateur.
+
+Cette indépendance améliore la robustesse du système.
+
+---
+
+## 4.4 Abstraction
+
+L’abstraction consiste à masquer la complexité interne d’un système.
+
+Dans le projet :
+
+```php
+StudentService::getAllStudents();
+```
+
+Le contrôleur n’a pas besoin de savoir :
+
+- Comment la requête HTTP est construite
+- Comment le JSON est décodé
+
+Ces détails sont abstraits dans le service.
+
+---
+
+## 4.5 Modularité
+
+La modularité permet de diviser un système en composants indépendants.
+
+Structure modulaire :
+
+```
+controllers/
+services/
+views/
+config/
+```
+
+Chaque module peut être modifié indépendamment.
+
+La modularité facilite :
+
+- Les évolutions futures
+- La maintenance
+- Les tests
+- Le travail collaboratif
+
+---
+
+## 4.6 Maintenabilité et Évolutivité
+
+Une architecture bien conçue permet :
+
+- D’ajouter de nouvelles fonctionnalités
+- De modifier une partie du système sans impacter le reste
+- D’améliorer progressivement l’application
+
+Exemple :
+
+Si l’API change d’URL, seule la configuration doit être modifiée :
+
+```php
+define('API_BASE_URL', 'http://nouvelle-api');
+```
+
+L’ensemble du système continue de fonctionner.
+
+---
+
+## 4.7 Testabilité
+
+Une architecture modulaire facilite les tests unitaires.
+
+Le service peut être testé indépendamment du contrôleur.  
+La vue peut être vérifiée indépendamment de la logique métier.
+
+Cela correspond aux bonnes pratiques modernes du développement logiciel.
+
+---
+
+## 4.8 Qualité Logicielle
+
+Selon les critères classiques de qualité logicielle, une bonne architecture améliore :
+
+- Lisibilité
+- Maintenabilité
+- Réutilisabilité
+- Extensibilité
+- Robustesse
+
+L’adoption de MVC contribue directement à ces objectifs.
+
 # 5. API REST
 
 ## 5.1 Définition
